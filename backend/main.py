@@ -8,6 +8,17 @@ app = FastAPI()
 def root():
     return {"message": "AI Context Hub backend is running!"}
 
+@app.get("/ping")
+def ping():
+    return {"status": "ok"}
+
+@app.get("/check_key")
+def check_key():
+    api_key = os.getenv("OPENAI_API_KEY")
+    if api_key:
+        return {"has_key": True, "length": len(api_key)}
+    return {"has_key": False}
+
 @app.get("/summary")
 def summary():
     api_key = os.getenv("OPENAI_API_KEY")
